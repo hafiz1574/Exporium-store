@@ -12,6 +12,7 @@ const brandEventName = "exporium-brand-change";
 const isCatalogPage = document.body?.classList.contains("page-catalog");
 const favoritesKey = "exporiumFavorites";
 const cartKey = "exporiumCart";
+const ORDER_URL = "https://script.google.com/macros/s/AKfycby2mlCBlXEHwMDRZC7C_a2R15faIWMQGGNHYNkWp9lEPRYeLm2Y0z-pBn-0snvbAuok/exec";
 
 const readList = (key) => {
   try {
@@ -159,6 +160,33 @@ const toggleCart = (productId) => {
   setToggleState("cart-toggle", productId, cartIds.has(productId));
   renderCartBoard();
   updateIconCounters();
+};
+
+const setupOrderForm = () => {
+  const form = document.getElementById("orderForm");
+  if (!form || !ORDER_URL) return;
+
+  form.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    const formData = Object.fromEntries(new FormData(form).entries());
+
+    try {
+      const response = await fetch(ORDER_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        throw new Error("Request failed");
+      }
+
+      alert("Order submitted successfully!");
+      form.reset();
+    } catch (error) {
+      alert("Unable to submit order. Please try again.");
+    }
+  });
 };
 
 const getStoredBrand = () => {
@@ -924,3 +952,4 @@ setupSearch();
 renderCartBoard();
 renderFavoritesBoard();
 updateIconCounters();
+setupOrderForm();

@@ -414,29 +414,6 @@
       </div>
     </footer>
 
-    <script>
-      const ORDER_URL = "https://script.google.com/macros/s/AKfycby2mlCBlXEHwMDRZC7C_a2R15faIWMQGGNHYNkWp9lEPRYeLm2Y0z-pBn-0snvbAuok/exec";
-
-      document.getElementById("orderForm")?.addEventListener("submit", async (event) => {
-        event.preventDefault();
-        const formData = Object.fromEntries(new FormData(event.target).entries());
-
-        try {
-          await fetch(ORDER_URL, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(formData),
-          });
-          alert("Order submitted successfully!");
-          event.target.reset();
-        } catch (error) {
-          alert("Unable to submit order right now. Please retry.");
-        }
-      });
-    </script>
-
     <script src="scripts/data.js" defer></script>
     <script src="scripts/main.js" defer></script>
   </body>
