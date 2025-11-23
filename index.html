@@ -212,7 +212,7 @@
           </article>
           <article>
             <form id="orderForm" class="cta-form">
-              <h3>Place Order</h3>
+              <h2>Place Order</h2>
               <label>
                 Customer Name
                 <input name="name" required />
@@ -416,5 +416,28 @@
 
     <script src="scripts/data.js" defer></script>
     <script src="scripts/main.js" defer></script>
+    <script>
+      const ORDER_URL = "https://script.google.com/macros/s/AKfycby2mlCBlXEHwMDRZC7C_a2R15faIWMQGGNHYNkWp9lEPRYeLm2Y0z-pBn-0snvbAuok/exec";
+      const orderForm = document.getElementById("orderForm");
+      if (orderForm) {
+        orderForm.addEventListener("submit", async (event) => {
+          event.preventDefault();
+          const formData = Object.fromEntries(new FormData(orderForm).entries());
+          try {
+            const response = await fetch(ORDER_URL, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(formData),
+            });
+            if (!response.ok) {
+              throw new Error("Request failed");
+            }
+            alert("Order submitted successfully!");
+          } catch (error) {
+            alert("Unable to submit order. Please try again.");
+          }
+        });
+      }
+    </script>
   </body>
 </html>
