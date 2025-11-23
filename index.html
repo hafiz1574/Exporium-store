@@ -420,21 +420,37 @@
       const ORDER_URL = "https://script.google.com/macros/s/AKfycby2mlCBlXEHwMDRZC7C_a2R15faIWMQGGNHYNkWp9lEPRYeLm2Y0z-pBn-0snvbAuok/exec";
       const orderForm = document.getElementById("orderForm");
       if (orderForm) {
+        const submitButton = orderForm.querySelector("button[type='submit']");
+        const statusField = document.createElement("p");
+        statusField.className = "form-status";
+        statusField.setAttribute("role", "status");
+        orderForm.appendChild(statusField);
+
         orderForm.addEventListener("submit", async (event) => {
           event.preventDefault();
-          const formData = Object.fromEntries(new FormData(orderForm).entries());
+          statusField.textContent = "";
+          if (submitButton) {
+            submitButton.disabled = true;
+            submitButton.textContent = "Sending...";
+          }
+
+          const formData = new FormData(orderForm);
+
           try {
-            const response = await fetch(ORDER_URL, {
+            await fetch(ORDER_URL, {
               method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify(formData),
+              body: formData,
+              mode: "no-cors",
             });
-            if (!response.ok) {
-              throw new Error("Request failed");
-            }
-            alert("Order submitted successfully!");
+            orderForm.reset();
+            statusField.textContent = "Order submitted. Our ops team will confirm shortly.";
           } catch (error) {
-            alert("Unable to submit order. Please try again.");
+            statusField.textContent = "Unable to submit order. Please email hello@exporium.com instead.";
+          } finally {
+            if (submitButton) {
+              submitButton.disabled = false;
+              submitButton.textContent = "Submit Order";
+            }
           }
         });
       }
