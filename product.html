@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Exporium Product Preview</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles/main.css" />
+  </head>
+  <body class="page-product">
+    <header class="site-header">
+      <div class="shell header__row">
+        <a class="logo" href="index.html">Exporium</a>
+        <nav class="primary-nav">
+          <a href="index.html">Home</a>
+          <a href="catalog.html">Catalog</a>
+          <a href="index.html#supply">Supply Chain</a>
+          <a href="index.html#stories">Stories</a>
+          <a href="index.html#contact" class="cta-link">Contact</a>
+          <div class="brand-index" data-brand-index>
+            <button class="brand-toggle" type="button" data-brand-toggle>
+              Brand index
+              <span class="chevron"></span>
+            </button>
+            <div class="brand-menu" data-brand-menu></div>
+          </div>
+        </nav>
+        <div class="header-actions">
+          <a class="btn ghost mini" href="catalog.html">Back to catalog</a>
+          <a class="icon-button" href="index.html#cart" aria-label="View cart" data-cart-link>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 6h-2l-1 3m0 0-1 3h3l3 9h8l3-9h3l-1-3h-17z" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span class="icon-button__count" data-cart-count>0</span>
+          </a>
+          <a class="icon-button" href="index.html#favorites" aria-label="View favorites" data-favorite-link>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7.5-4.35-7.5-10A4.5 4.5 0 0 1 9 6.5 4.24 4.24 0 0 1 12 8a4.24 4.24 0 0 1 3-1.5A4.5 4.5 0 0 1 19.5 11c0 5.65-7.5 10-7.5 10" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span class="icon-button__count" data-favorite-count>0</span>
+          </a>
+          <button class="user-toggle" data-user-toggle aria-haspopup="true" aria-expanded="false">
+            <span>User options</span>
+            <span class="chevron"></span>
+          </button>
+          <div class="user-menu" data-user-menu>
+            <a href="#">Wholesale portal</a>
+            <a href="#">Create account</a>
+            <a href="#">Saved sourcing lists</a>
+            <a href="#">Logistics preferences</a>
+            <a href="auth.html">Sign in</a>
+          </div>
+        </div>
+        <button class="menu-toggle" aria-label="Toggle navigation">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </header>
+
+    <main>
+      <section class="product-hero" data-product-detail>
+        <div class="shell">
+          <p>Loading product...</p>
+        </div>
+      </section>
+
+      <section class="product-sections">
+        <div class="shell product-sections__grid">
+          <div class="product-story" data-product-story></div>
+          <div class="product-logistics" data-product-logistics></div>
+        </div>
+      </section>
+
+      <section class="catalog related">
+        <div class="shell">
+          <div class="related__header">
+            <div>
+              <p class="eyebrow">More drops</p>
+              <h2>Keep your assortment fresh.</h2>
+            </div>
+            <a class="btn ghost" href="catalog.html">Browse catalog</a>
+          </div>
+          <div class="product-grid" data-related-products></div>
+        </div>
+      </section>
+
+      <section class="order-panel" id="order">
+        <div class="shell order-panel__grid" data-order-form>
+          <div>
+            <p class="eyebrow">Wholesale intake</p>
+            <h2>Lock production for <span data-order-product>this drop</span>.</h2>
+            <p>
+              We'll respond within 24h with landed-cost validation, QC slots, and
+              Shenzhen consolidation dates tailored to your warehouse.
+            </p>
+            <ul class="order-panel__bullets">
+              <li>Dedicated demand planner for your lane</li>
+              <li>Photo + video QC proofing</li>
+              <li>Option to split MOQ across colorways</li>
+            </ul>
+          </div>
+          <form class="cta-form">
+            <label>
+              Company name
+              <input type="text" placeholder="e.g. BazarWalk" required />
+            </label>
+            <label>
+              Contact email
+              <input type="email" placeholder="ops@brand.com" required />
+            </label>
+            <label>
+              Requested pairs
+              <select required>
+                <option value="" disabled selected>Select range</option>
+                <option>150 - 300 pairs</option>
+                <option>300 - 600 pairs</option>
+                <option>600 - 1200 pairs</option>
+                <option>1200+ pairs</option>
+              </select>
+            </label>
+            <label>
+              Notes
+              <textarea rows="3" data-order-notes placeholder="List colors, delivery window..."></textarea>
+            </label>
+            <button class="btn primary" type="submit">Start order</button>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="shell footer__grid">
+        <div>
+          <a class="logo" href="index.html">Exporium</a>
+          <p>China-to-Bangladesh footwear logistics built for modern retail.</p>
+          <small>© <span id="year"></span> Exporium Logistics Ltd.</small>
+        </div>
+        <div>
+          <p class="footer-heading">Navigation</p>
+          <a href="catalog.html">Catalog</a>
+          <a href="index.html#supply">Supply chain</a>
+          <a href="index.html#stories">Stories</a>
+          <a href="index.html#contact">Contact</a>
+        </div>
+        <div>
+          <p class="footer-heading">Operations</p>
+          <p>Shenzhen consolidation hub</p>
+          <p>Dhaka QC & distribution</p>
+          <a href="mailto:hello@exporium.com">hello@exporium.com</a>
+          <a href="tel:+8801300123456">+880 1300-123-456</a>
+        </div>
+      </div>
+    </footer>
+
+    <script src="scripts/data.js" defer></script>
+    <script src="scripts/main.js" defer></script>
+  </body>
+</html>

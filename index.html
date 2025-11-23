@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Exporium | China-to-Bangladesh Footwear Supply</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles/main.css" />
+  </head>
+  <body>
+      <header class="site-header">
+        <div class="shell header__row">
+          <a class="logo" href="index.html">Exporium</a>
+          <nav class="primary-nav">
+            <a href="index.html" class="is-active">Home</a>
+            <a href="catalog.html">Catalog</a>
+            <a href="index.html#supply">Supply Chain</a>
+            <a href="index.html#stories">Stories</a>
+            <a href="index.html#contact" class="cta-link">Contact</a>
+            <div class="brand-index" data-brand-index>
+              <button class="brand-toggle" type="button" data-brand-toggle>
+                Brand index
+                <span class="chevron"></span>
+              </button>
+              <div class="brand-menu" data-brand-menu></div>
+            </div>
+          </nav>
+          <div class="header-actions">
+            <a class="btn ghost mini" href="catalog.html">View drops</a>
+            <a class="icon-button" href="#cart" aria-label="View cart" data-cart-link>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 6h-2l-1 3m0 0-1 3h3l3 9h8l3-9h3l-1-3h-17z" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span class="icon-button__count" data-cart-count>0</span>
+            </a>
+            <a class="icon-button" href="#favorites" aria-label="View favorites" data-favorite-link>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7.5-4.35-7.5-10A4.5 4.5 0 0 1 9 6.5 4.24 4.24 0 0 1 12 8a4.24 4.24 0 0 1 3-1.5A4.5 4.5 0 0 1 19.5 11c0 5.65-7.5 10-7.5 10" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span class="icon-button__count" data-favorite-count>0</span>
+            </a>
+            <button class="user-toggle" data-user-toggle aria-haspopup="true" aria-expanded="false">
+              <span>User options</span>
+              <span class="chevron"></span>
+            </button>
+            <div class="user-menu" data-user-menu>
+              <a href="#">Wholesale portal</a>
+              <a href="#">Create account</a>
+              <a href="#">Saved sourcing lists</a>
+              <a href="#">Logistics preferences</a>
+              <a href="auth.html">Sign in</a>
+            </div>
+          </div>
+          <button class="menu-toggle" aria-label="Toggle navigation">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+        </div>
+      </header>
+
+    <main>
+      <section class="hero" id="home">
+        <div class="shell hero__grid">
+          <div class="hero__content">
+            <p class="eyebrow">China ➜ Bangladesh logistics</p>
+            <h1>Premium sneakers delivered with supply-chain certainty.</h1>
+            <p>
+              Exporium connects Bangladeshi retailers with curated factories in
+              China, ensuring authentic drops, transparent pricing, and
+              lightning-fast shipping windows.
+            </p>
+            <div class="hero-announcement">
+              <span class="pill">Offer</span>
+              <p>
+                Singles Day reruns: 12% freight subsidy on prepaid drops locked before
+                <strong>30 Nov</strong>. Applies to Nike, Puma, and Jordan capsules.
+              </p>
+              <a class="announcement-link" href="#cart">Claim subsidy</a>
+            </div>
+            <form class="product-search" data-search-form>
+              <input
+                type="search"
+                placeholder="Search products or brands"
+                aria-label="Search catalog"
+                data-search-input
+              />
+              <button class="btn secondary" type="submit">Search catalog</button>
+              <div class="search-results" data-search-results hidden></div>
+            </form>
+            <div class="hero__actions">
+              <a class="btn primary" href="#catalog">Browse catalog</a>
+              <a class="btn ghost" href="#contact">Book sourcing call</a>
+            </div>
+            <div class="hero__metrics">
+              <div>
+                <span>48h</span>
+                <p>Average factory confirmation</p>
+              </div>
+              <div>
+                <span>12+</span>
+                <p>Vetted manufacturing partners</p>
+              </div>
+              <div>
+                <span>7.5%</span>
+                <p>Avg. landed cost savings</p>
+              </div>
+            </div>
+          </div>
+          <div class="hero__visual">
+            <div class="hero-card">
+              <p>Latest drop</p>
+              <h3>Flux Glide V2</h3>
+              <p class="price">Starting at $38 / pair</p>
+              <ul>
+                <li>MOQ 150 pairs</li>
+                <li>Lead time 9 days</li>
+                <li>QC by Exporium Dhaka</li>
+              </ul>
+              <a class="btn secondary" data-buy-cta="flux-glide" href="product.html?id=flux-glide&action=buy">Reserve stock</a>
+            </div>
+            <div class="hero-card ghost">
+              <p>Lane visibility</p>
+              <h3>Shenzhen ⇢ Dhaka</h3>
+              <p class="status">Next consolidation: 02 Dec</p>
+              <ul>
+                <li>Capacity left: 32%</li>
+                <li>Transit SLA: 6 days</li>
+                <li>Customs cleared via green lane</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="partners">
+        <div class="shell">
+          <p class="eyebrow">Trusted by regional retailers</p>
+          <div class="partner-logos">
+            <span>DhakaSneaks</span>
+            <span>Chittagong Kicks</span>
+            <span>StrideLab</span>
+            <span>BazarWalk</span>
+            <span>Orbit Sports</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="catalog" id="catalog">
+        <div class="shell">
+          <header>
+            <div>
+              <p class="eyebrow">Featured catalog</p>
+              <h2>Shoes tuned for the Bangladeshi streetwear scene.</h2>
+            </div>
+              <div class="catalog__actions">
+                <a class="btn ghost" href="#contact">Request full line sheet</a>
+                <a class="btn secondary" href="catalog.html">Open full catalog</a>
+              </div>
+          </header>
+          <div class="product-grid" data-product-grid></div>
+        </div>
+      </section>
+
+      <section class="commerce-flows" id="cart">
+        <div class="shell commerce-flows__grid">
+          <article class="ops-card cart-card" data-cart-board>
+            <div class="ops-card__header">
+              <div class="icon-chip">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 6h-2l-1 3m0 0-1 3h3l3 9h8l3-9h3l-1-3h-17z" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              <div>
+                <p class="eyebrow">Cart staging</p>
+                <h3>Wholesale cart synced to Dhaka ops.</h3>
+              </div>
+            </div>
+            <p>
+              Hold provisional SKUs in a shared cart so finance, ops, and merchandising stay aligned on the same landed cost view.
+            </p>
+            <ul class="cart-list" data-cart-list></ul>
+            <p class="cart-empty" data-cart-empty>No SKUs in the cart yet. Tap the cart icon on any product to stage it.</p>
+          </article>
+          <article class="ops-card favorite-card" id="favorites">
+            <div class="ops-card__header">
+              <div class="icon-chip">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7.5-4.35-7.5-10A4.5 4.5 0 0 1 9 6.5 4.24 4.24 0 0 1 12 8a4.24 4.24 0 0 1 3-1.5A4.5 4.5 0 0 1 19.5 11c0 5.65-7.5 10-7.5 10" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              <div>
+                <p class="eyebrow">Favorites</p>
+                <h3>Bookmark heat for upcoming consolidations.</h3>
+              </div>
+            </div>
+            <p>
+              Share a favorites grid with your district managers. We keep landed costs visible so they can lobby for the right SKUs.
+            </p>
+            <div class="favorite-grid" data-favorite-list></div>
+            <p class="cart-empty" data-favorite-empty>No favorites saved yet. Tap the heart icon on a product card.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="order-inline" id="direct-order">
+        <div class="shell order-inline__grid">
+          <article>
+            <p class="eyebrow">Direct lane booking</p>
+            <h2>Push a quick order to our ops room.</h2>
+            <p>
+              Already know the SKU, size curve, and quantity you want to secure? Drop the
+              essentials here and our demand planner will sync back with QC windows within hours.
+            </p>
+          </article>
+          <article>
+            <form id="orderForm" class="cta-form">
+              <h3>Place Order</h3>
+              <label>
+                Customer Name
+                <input name="name" required />
+              </label>
+              <label>
+                Phone Number
+                <input name="phone" required />
+              </label>
+              <label>
+                Product ID
+                <input name="productId" required />
+              </label>
+              <label>
+                Size
+                <input name="size" />
+              </label>
+              <label>
+                Quantity
+                <input type="number" name="quantity" required />
+              </label>
+              <label>
+                Notes
+                <textarea name="notes"></textarea>
+              </label>
+              <button class="btn primary" type="submit">Submit Order</button>
+            </form>
+          </article>
+        </div>
+      </section>
+
+      <section class="supply" id="supply">
+        <div class="shell supply__grid">
+          <div>
+            <p class="eyebrow">Supply chain program</p>
+            <h2>Compliance-first freight lanes with Dhaka-based QC.</h2>
+            <p>
+              From factory audits to bonded warehouse staging, Exporium’s team
+              handles every milestone so you keep cashflow predictable.
+            </p>
+            <div class="timeline">
+              <div>
+                <h4>1. Sourcing sprint</h4>
+                <p>48-hour quotation window with landed cost scenarios.</p>
+              </div>
+              <div>
+                <h4>2. Factory readiness</h4>
+                <p>Live production dashboards + photo QC proofs.</p>
+              </div>
+              <div>
+                <h4>3. Consolidated freight</h4>
+                <p>Weekly Shenzhen consolidations with bonded clearance.</p>
+              </div>
+              <div>
+                <h4>4. Dhaka distribution</h4>
+                <p>Last-mile drop to your warehouse or flagship store.</p>
+              </div>
+            </div>
+          </div>
+          <div class="supply__panel">
+            <h3>Lane performance</h3>
+            <ul>
+              <li>
+                <span>On-time arrivals</span>
+                <span>97.4%</span>
+              </li>
+              <li>
+                <span>Damaged pairs</span>
+                <span>&lt; 0.4%</span>
+              </li>
+              <li>
+                <span>Avg. customs release</span>
+                <span>12 hrs</span>
+              </li>
+              <li>
+                <span>Factory compliance score</span>
+                <span>9.2 / 10</span>
+              </li>
+            </ul>
+            <button class="btn primary">Download compliance pack</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="stories" id="stories">
+        <div class="shell">
+          <header>
+            <div>
+              <p class="eyebrow">Retailer stories</p>
+              <h2>Bangladeshi retailers scaling with Exporium.</h2>
+            </div>
+            <div class="story-filters">
+              <button class="chip active" data-story-chip data-filter="all">All</button>
+              <button class="chip" data-story-chip data-filter="boutique">Boutiques</button>
+              <button class="chip" data-story-chip data-filter="chain">Chains</button>
+            </div>
+          </header>
+
+          <div class="story-grid">
+            <article class="story-card" data-category="boutique">
+              <p class="tag">Boutique</p>
+              <h3>StrideLab</h3>
+              <p>
+                Reduced their landed cost by 9% by consolidating three factories
+                into one Exporium-managed lane.
+              </p>
+              <div class="quote">
+                “We unlocked new capsule drops without locking cash for months.”
+              </div>
+              <p class="author">Maliha Rahman, Founder</p>
+            </article>
+            <article class="story-card" data-category="chain">
+              <p class="tag">Chain</p>
+              <h3>DhakaSneaks</h3>
+              <p>
+                Rolled out 14 new SKUs this year with Exporium’s QC and demand
+                planning dashboards.
+              </p>
+              <div class="quote">
+                “Every shipment arrives shelf-ready with localized packaging.”
+              </div>
+              <p class="author">Samin Chowdhury, COO</p>
+            </article>
+            <article class="story-card" data-category="boutique">
+              <p class="tag">Boutique</p>
+              <h3>Orbit Sports</h3>
+              <p>
+                Cut fulfillment times from 21 to 8 days by switching to our
+                Shenzhen consolidation hub.
+              </p>
+              <div class="quote">
+                “The transparency dashboard is our new operations command.”
+              </div>
+              <p class="author">Nafisa Karim, GM</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="cta" id="contact">
+        <div class="shell cta__grid">
+          <div>
+            <p class="eyebrow">Next intake closes in 5 days</p>
+            <h2>Secure your production window.</h2>
+            <p>
+              Share your target SKU count and we will return with landed cost
+              options, QC schedule, and freight plan.
+            </p>
+          </div>
+          <form class="cta-form">
+            <label>
+              Company name
+              <input type="text" placeholder="e.g. DhakaSneaks" required />
+            </label>
+            <label>
+              Contact email
+              <input type="email" placeholder="you@brand.com" required />
+            </label>
+            <label>
+              Monthly pairs target
+              <select required>
+                <option value="" disabled selected>Select range</option>
+                <option>0 - 200 pairs</option>
+                <option>200 - 500 pairs</option>
+                <option>500 - 1200 pairs</option>
+                <option>1200+ pairs</option>
+              </select>
+            </label>
+            <label>
+              Notes
+                <textarea rows="3" data-notes-field placeholder="Favorite styles, launch date..."></textarea>
+            </label>
+            <button class="btn primary" type="submit">Request sourcing call</button>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="shell footer__grid">
+        <div>
+            <a class="logo" href="index.html">Exporium</a>
+          <p>China-to-Bangladesh footwear logistics built for modern retail.</p>
+          <small>© <span id="year"></span> Exporium Logistics Ltd.</small>
+        </div>
+        <div>
+          <p class="footer-heading">Navigation</p>
+            <a href="catalog.html">Catalog</a>
+            <a href="index.html#supply">Supply chain</a>
+            <a href="index.html#stories">Stories</a>
+            <a href="index.html#contact">Contact</a>
+        </div>
+        <div>
+          <p class="footer-heading">Operations</p>
+          <p>Shenzhen consolidation hub</p>
+          <p>Dhaka QC & distribution</p>
+          <a href="mailto:hello@exporium.com">hello@exporium.com</a>
+          <a href="tel:+8801300123456">+880 1300-123-456</a>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      const ORDER_URL = "https://script.google.com/macros/s/AKfycby2mlCBlXEHwMDRZC7C_a2R15faIWMQGGNHYNkWp9lEPRYeLm2Y0z-pBn-0snvbAuok/exec";
+
+      document.getElementById("orderForm")?.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        const formData = Object.fromEntries(new FormData(event.target).entries());
+
+        try {
+          await fetch(ORDER_URL, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(formData),
+          });
+          alert("Order submitted successfully!");
+          event.target.reset();
+        } catch (error) {
+          alert("Unable to submit order right now. Please retry.");
+        }
+      });
+    </script>
+
+    <script src="scripts/data.js" defer></script>
+    <script src="scripts/main.js" defer></script>
+  </body>
+</html>
