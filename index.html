@@ -36,7 +36,7 @@
               <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 6h-2l-1 3m0 0-1 3h3l3 9h8l3-9h3l-1-3h-17z" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
               <span class="icon-button__count" data-cart-count>0</span>
             </a>
-            <a class="icon-button" href="#favorites" aria-label="View favorites" data-favorite-link>
+            <a class="icon-button" href="#favorites" aria-label="View favorites" data-favorite-link data-auth-protected hidden>
               <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7.5-4.35-7.5-10A4.5 4.5 0 0 1 9 6.5 4.24 4.24 0 0 1 12 8a4.24 4.24 0 0 1 3-1.5A4.5 4.5 0 0 1 19.5 11c0 5.65-7.5 10-7.5 10" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
               <span class="icon-button__count" data-favorite-count>0</span>
             </a>
@@ -67,9 +67,9 @@
       <section class="hero" id="home">
         <div class="shell hero__grid">
           <div class="hero__content">
-            <p class="eyebrow">China ➜ Bangladesh logistics</p>
-            <h1>Premium sneakers delivered with supply-chain certainty.</h1>
-            <p>
+            <p class="eyebrow" data-hero-flag>China ➜ Bangladesh logistics</p>
+            <h1 data-hero-headline>Premium sneakers delivered with supply-chain certainty.</h1>
+            <p data-hero-subline>
               Exporium connects Bangladeshi retailers with curated factories in
               China, ensuring authentic drops, transparent pricing, and
               lightning-fast shipping windows.
@@ -96,7 +96,7 @@
               <a class="btn primary" href="#catalog">Browse catalog</a>
               <a class="btn ghost" href="#contact">Book sourcing call</a>
             </div>
-            <div class="hero__metrics">
+            <div class="hero__metrics" data-hero-metrics>
               <div>
                 <span>48h</span>
                 <p>Average factory confirmation</p>
@@ -114,25 +114,16 @@
           <div class="hero__visual">
             <div class="hero-card">
               <p>Latest drop</p>
-              <h3>Flux Glide V2</h3>
-              <p class="price">Starting at $38 / pair</p>
+              <h3 data-featured-title>Flux Glide V2</h3>
+              <p class="price" data-featured-price>Starting at $38 / pair</p>
               <ul>
-                <li>MOQ 150 pairs</li>
-                <li>Lead time 9 days</li>
-                <li>QC by Exporium Dhaka</li>
+                <li data-featured-note="moq">MOQ 150 pairs</li>
+                <li data-featured-note="lead">Lead time 9 days</li>
+                <li data-featured-note="qc">QC by Exporium Dhaka</li>
               </ul>
               <a class="btn secondary" data-buy-cta="flux-glide" href="product.html?id=flux-glide&action=buy">Reserve stock</a>
             </div>
-            <div class="hero-card ghost">
-              <p>Lane visibility</p>
-              <h3>Shenzhen ⇢ Dhaka</h3>
-              <p class="status">Next consolidation: 02 Dec</p>
-              <ul>
-                <li>Capacity left: 32%</li>
-                <li>Transit SLA: 6 days</li>
-                <li>Customs cleared via green lane</li>
-              </ul>
-            </div>
+            <p class="hero-note">Live stats update directly from the Exporium dashboard.</p>
           </div>
         </div>
       </section>
@@ -184,7 +175,7 @@
             <ul class="cart-list" data-cart-list></ul>
             <p class="cart-empty" data-cart-empty>No SKUs in the cart yet. Tap the cart icon on any product to stage it.</p>
           </article>
-          <article class="ops-card favorite-card" id="favorites">
+          <article class="ops-card favorite-card" id="favorites" data-auth-protected hidden>
             <div class="ops-card__header">
               <div class="icon-chip">
                 <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7.5-4.35-7.5-10A4.5 4.5 0 0 1 9 6.5 4.24 4.24 0 0 1 12 8a4.24 4.24 0 0 1 3-1.5A4.5 4.5 0 0 1 19.5 11c0 5.65-7.5 10-7.5 10" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -279,19 +270,19 @@
             <ul>
               <li>
                 <span>On-time arrivals</span>
-                <span>97.4%</span>
+                <span data-stat-on-time>97.4%</span>
               </li>
               <li>
                 <span>Damaged pairs</span>
-                <span>&lt; 0.4%</span>
+                <span data-stat-damage>&lt; 0.4%</span>
               </li>
               <li>
                 <span>Avg. customs release</span>
-                <span>12 hrs</span>
+                <span data-stat-customs>12 hrs</span>
               </li>
               <li>
                 <span>Factory compliance score</span>
-                <span>9.2 / 10</span>
+                <span data-stat-compliance>9.2 / 10</span>
               </li>
             </ul>
             <button class="btn primary">Download compliance pack</button>
@@ -303,52 +294,18 @@
         <div class="shell">
           <header>
             <div>
-              <p class="eyebrow">Retailer stories</p>
-              <h2>Bangladeshi retailers scaling with Exporium.</h2>
-            </div>
-            <div class="story-filters">
-              <button class="chip active" data-story-chip data-filter="all">All</button>
-              <button class="chip" data-story-chip data-filter="boutique">Boutiques</button>
-              <button class="chip" data-story-chip data-filter="chain">Chains</button>
+              <p class="eyebrow">Latest updates</p>
+              <h2>Fresh drops, freight windows, and sourcing notes.</h2>
             </div>
           </header>
 
-          <div class="story-grid">
-            <article class="story-card" data-category="boutique">
-              <p class="tag">Boutique</p>
-              <h3>StrideLab</h3>
-              <p>
-                Reduced their landed cost by 9% by consolidating three factories
-                into one Exporium-managed lane.
-              </p>
-              <div class="quote">
-                “We unlocked new capsule drops without locking cash for months.”
-              </div>
-              <p class="author">Maliha Rahman, Founder</p>
-            </article>
-            <article class="story-card" data-category="chain">
-              <p class="tag">Chain</p>
-              <h3>DhakaSneaks</h3>
-              <p>
-                Rolled out 14 new SKUs this year with Exporium’s QC and demand
-                planning dashboards.
-              </p>
-              <div class="quote">
-                “Every shipment arrives shelf-ready with localized packaging.”
-              </div>
-              <p class="author">Samin Chowdhury, COO</p>
-            </article>
-            <article class="story-card" data-category="boutique">
-              <p class="tag">Boutique</p>
-              <h3>Orbit Sports</h3>
-              <p>
-                Cut fulfillment times from 21 to 8 days by switching to our
-                Shenzhen consolidation hub.
-              </p>
-              <div class="quote">
-                “The transparency dashboard is our new operations command.”
-              </div>
-              <p class="author">Nafisa Karim, GM</p>
+          <div class="story-grid" data-post-feed>
+            <article class="story-card" data-category="general">
+              <p class="tag">Operations</p>
+              <h3>Live updates</h3>
+              <p>Once published in admin, latest posts stream here automatically.</p>
+              <div class="quote">Use the admin portal to add short updates, hero copy, or incentives.</div>
+              <p class="author">Exporium Ops</p>
             </article>
           </div>
         </div>
@@ -418,6 +375,7 @@
     </footer>
 
     <script src="scripts/config.js" defer></script>
+    <script src="scripts/cms.js" defer></script>
     <script src="scripts/data.js" defer></script>
     <script src="scripts/main.js" defer></script>
     <script>

@@ -5,12 +5,13 @@ A fully responsive single-page storefront for Exporium, a shoe and sneaker sourc
 ## Features
 
 - Multi-page experience: landing (`index.html`), full catalog (`catalog.html`), dynamic product preview (`product.html`), and login/sign-up intake (`auth.html`).
-- Hero section with KPI metrics, logistics lane snapshot, and user menu for wholesale/account actions.
+- Hero section, KPI metrics, and featured drop messaging hydrate from live `/api/public/settings` data.
 - Catalog filters (segment, audience, brand, search, sort) plus buy-intent + cart/favorites tracking that pre-fills sourcing forms.
 - Product detail page with gallery, specs, logistics breakdown, and inline order form.
 - Brand index flyout + global search suggestions to jump to SKUs or filter by brand from any page.
 - Wholesale cart + favorites dashboard sections with iconography for downstream ops, plus device-driven dark/light styling.
-- Supply-chain program timeline, retailer story filters, subtle transitions, and responsive CTA forms.
+- Wishlist/favorites UI stays hidden until a user signs in, keeping the guest experience simple.
+- Supply-chain program timeline, responsive CTA forms, and a "Latest updates" feed that pulls the newest `/api/public/posts` entries.
 
 ## Tech Stack
 
@@ -27,6 +28,7 @@ product.html        # Dynamic product preview + order form
 auth.html           # Login / sign-up workspace intake
 styles/main.css     # Global styles, animations, and theme rules
 scripts/data.js     # Centralized demo product dataset
+scripts/cms.js      # Fetches live settings + posts for the landing page
 scripts/main.js     # Navigation, filtering, rendering, favorites/cart, and buy-intent logic
 server/             # Express-based admin API (auth, posts, settings, uploads)
 ```
@@ -83,6 +85,43 @@ Render deploy hints:
 	3. Use the Posts table and composer to create, edit, or delete records backed by `/api/posts`.
 	4. Update JSON settings payloads via `/api/settings` and upload assets through `/api/uploads` (with delete helper).
 - The overlay guard blocks actions until a valid token exists, and the user menu still exposes Sign out for clearing stored credentials.
+
+### Settings JSON cheatsheet
+
+`scripts/cms.js` looks for a few optional keys inside the `/api/settings` payload. Use the admin dashboard to save JSON shaped like this:
+
+```json
+{
+	"hero": {
+		"headline": "Premium sneakers delivered with supply-chain certainty.",
+		"subline": "China ➜ Bangladesh logistics with transparent landed costs.",
+		"metrics": [
+			{ "label": "Average factory confirmation", "value": "48h" },
+			{ "label": "Vetted manufacturing partners", "value": "12+" },
+			{ "label": "Avg. landed cost savings", "value": "7.5%" }
+		]
+	},
+	"featuredDrop": {
+		"title": "Flux Glide V2",
+		"price": "Starting at $38 / pair",
+		"notes": {
+			"moq": "MOQ 150 pairs",
+			"lead": "Lead time 9 days",
+			"qc": "QC by Exporium Dhaka"
+		}
+	},
+	"stats": {
+		"onTime": "97.4%",
+		"customs": "12 hrs",
+		"compliance": "9.2 / 10",
+		"damage": "< 0.4%"
+	}
+}
+```
+
+- `/api/public/settings` returns the object above, which is rendered on `index.html`.
+- `/api/public/posts` powers the “Latest updates” cards by reading published posts.
+- Any keys you omit safely fall back to the defaults baked into the markup.
 
 ## Getting Started
 

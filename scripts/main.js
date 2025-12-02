@@ -42,6 +42,8 @@ const getStoredToken = () => {
   }
 };
 
+const hasAuthSession = () => Boolean(getStoredToken());
+
 const setStoredToken = (token) => {
   try {
     if (token) {
@@ -138,11 +140,31 @@ const updateAuthIndicators = () => {
 
   selectAll("[data-auth-state]").forEach((node) => {
     node.textContent = label;
+    node.dataset.state = "";
   });
 
   selectAll("[data-logout-button]").forEach((button) => {
     button.hidden = !isSignedIn;
   });
+
+  selectAll("[data-auth-protected]").forEach((node) => {
+    node.hidden = !isSignedIn;
+  });
+};
+
+let authReminderTimeout = null;
+const remindAuth = (message) => {
+  clearTimeout(authReminderTimeout);
+  selectAll("[data-auth-state]").forEach((node) => {
+    node.textContent = message;
+    node.dataset.state = "alert";
+  });
+  authReminderTimeout = window.setTimeout(() => {
+    selectAll("[data-auth-state]").forEach((node) => {
+      node.dataset.state = "";
+    });
+    updateAuthIndicators();
+  }, 2600);
 };
 
 const setupAuthFlows = () => {
@@ -1136,6 +1158,10 @@ document.addEventListener("click", (event) => {
   const favoriteTrigger = event.target.closest("[data-favorite-toggle]");
   if (favoriteTrigger) {
     event.preventDefault();
+    if (!hasAuthSession()) {
+      remindAuth("Sign in to save favorites.");
+      return;
+    }
     toggleFavorite(favoriteTrigger.dataset.favoriteToggle);
     return;
   }

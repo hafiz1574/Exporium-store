@@ -1,15 +1,15 @@
 :root {
-  --bg: #050608;
-  --surface: #0f1115;
-  --card: #151821;
-  --muted: #7b8795;
-  --line: rgba(255, 255, 255, 0.08);
-  --brand: #ff5c35;
+  --bg: #050b16;
+  --surface: #0e1524;
+  --card: #141d30;
+  --muted: #9aa7bc;
+  --line: rgba(148, 163, 184, 0.15);
+  --brand: #ff6b4a;
   --brand-dark: #d9481f;
-  --accent: #3ecf8e;
+  --accent: #4ade80;
   --warning: #ffc857;
-  --text-strong: #ffffff;
-  --text-body: #f5f7fa;
+  --text-strong: #f8fafc;
+  --text-body: #e2e8f0;
   --font: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
@@ -24,7 +24,7 @@ html {
 body {
   margin: 0;
   font-family: var(--font);
-  background: radial-gradient(circle at top, rgba(255, 92, 53, 0.15), transparent 40%), var(--bg);
+  background: linear-gradient(180deg, #071228, #02060d 65%);
   color: var(--text-body);
   min-height: 100vh;
 }
@@ -228,6 +228,11 @@ p {
   font-size: 0.85rem;
   color: var(--muted);
   line-height: 1.4;
+}
+
+.user-menu__status[data-state="alert"] {
+  color: var(--brand);
+  font-weight: 600;
 }
 
 .user-menu__status strong {
@@ -584,7 +589,7 @@ p {
   flex-wrap: wrap;
   gap: 0.75rem 1rem;
   align-items: center;
-  background: rgba(255, 255, 255, 0.04);
+  background: var(--card);
   border: 1px solid var(--line);
   border-radius: 1rem;
   padding: 0.75rem 1rem;
@@ -616,6 +621,15 @@ p {
 .hero__visual {
   display: grid;
   gap: 1.5rem;
+}
+
+.hero-note {
+  margin: 0;
+  padding: 1.25rem 1.5rem;
+  border-left: 3px solid var(--brand);
+  border-radius: 1rem;
+  background: rgba(255, 255, 255, 0.02);
+  color: var(--muted);
 }
 
 .product-search,
@@ -671,7 +685,7 @@ p {
 }
 
 .hero-card {
-  background: rgba(255, 255, 255, 0.03);
+  background: var(--card);
   border: 1px solid var(--line);
   border-radius: 1.5rem;
   padding: 1.8rem;

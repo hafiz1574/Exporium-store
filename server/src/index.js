@@ -8,6 +8,7 @@ const authRoutes = require("./routes/auth");
 const postsRoutes = require("./routes/posts");
 const settingsRoutes = require("./routes/settings");
 const uploadsRoutes = require("./routes/uploads");
+const publicRoutes = require("./routes/public");
 const notFound = require("./middleware/notFound");
 const errorHandler = require("./middleware/errorHandler");
 
@@ -31,6 +32,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/posts", postsRoutes);
 app.use("/api/settings", settingsRoutes);
 app.use("/api/uploads", uploadsRoutes);
+app.use("/api/public", publicRoutes);
 app.use("/uploads", express.static(path.resolve(config.uploadDir)));
 
 app.use(notFound);

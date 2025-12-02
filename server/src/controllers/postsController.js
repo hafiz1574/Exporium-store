@@ -26,6 +26,19 @@ exports.list = asyncHandler(async (req, res) => {
   res.json({ posts: result.rows.map(mapPost) });
 });
 
+exports.listPublic = asyncHandler(async (req, res) => {
+  const result = await db.query(
+    `SELECT p.*, u.name AS author_name
+     FROM posts p
+     LEFT JOIN users u ON u.id = p.author_id
+     WHERE p.status = 'published'
+     ORDER BY p.created_at DESC
+     LIMIT 12`
+  );
+
+  res.json({ posts: result.rows.map(mapPost) });
+});
+
 exports.get = asyncHandler(async (req, res) => {
   const result = await db.query(
     `SELECT p.*, u.name AS author_name

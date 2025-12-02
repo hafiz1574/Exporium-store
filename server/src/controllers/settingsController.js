@@ -12,6 +12,11 @@ exports.getAll = asyncHandler(async (req, res) => {
   res.json({ settings: mapSettingsRows(result.rows) });
 });
 
+exports.getPublic = asyncHandler(async (req, res) => {
+  const result = await db.query("SELECT key, value FROM settings ORDER BY key ASC");
+  res.json({ settings: mapSettingsRows(result.rows) });
+});
+
 exports.updateMany = asyncHandler(async (req, res) => {
   const payload = req.body || {};
   const entries = Object.entries(payload);
