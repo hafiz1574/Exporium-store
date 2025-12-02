@@ -68,6 +68,12 @@ Render deploy hints:
 - **Instance Type**: Hobby → Free (scales later)
 - Add environment variables under Render > Web Service > Environment.
 
+### Frontend API configuration
+
+- `scripts/config.js` sets the public API base (`https://exporium-store.onrender.com` in production) and the local storage keys used for auth tokens/profile data. Update `apiBaseUrl` if you deploy the backend elsewhere.
+- `auth.html` now posts directly to `/api/auth/login` and stores the returned JWT client-side so subsequent fetch calls (or the upcoming admin UI) automatically include the `Authorization` header.
+- The header’s user menu reflects the stored session and surfaces a Sign out action that clears the local token/profile.
+
 ## Getting Started
 
 1. Clone or download the repository.

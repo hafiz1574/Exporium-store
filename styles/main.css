@@ -221,6 +221,33 @@ p {
   display: flex;
 }
 
+.user-menu__status {
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--line);
+  font-size: 0.85rem;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
+.user-menu__status strong {
+  color: var(--text-strong);
+}
+
+.form-status {
+  margin-top: 0.75rem;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+.form-status[data-state="error"] {
+  color: #f87171;
+}
+
+.form-status[data-state="success"] {
+  color: #34d399;
+}
+
 .logo {
   font-weight: 700;
   font-size: 1.2rem;

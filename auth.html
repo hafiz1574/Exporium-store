@@ -48,6 +48,9 @@
             <a href="#">Wholesale portal</a>
             <a href="#">Logistics preferences</a>
             <a href="catalog.html">View catalog</a>
+            <a href="auth.html">Sign in</a>
+            <a href="#" data-logout-button hidden>Sign out</a>
+            <p class="user-menu__status" data-auth-state>Not signed in</p>
           </div>
         </div>
         <button class="menu-toggle" aria-label="Toggle navigation">
@@ -64,21 +67,22 @@
           <article>
             <p class="eyebrow">Existing partners</p>
             <h1>Sign in to Exporium.</h1>
-            <form class="cta-form auth-form">
+            <form class="cta-form auth-form" data-login-form>
               <label>
                 Email
-                <input type="email" placeholder="ops@brand.com" required />
+                <input type="email" name="email" placeholder="ops@brand.com" autocomplete="email" required />
               </label>
               <label>
                 Password
-                <input type="password" placeholder="••••••••" required />
+                <input type="password" name="password" placeholder="••••••••" autocomplete="current-password" required />
               </label>
               <label class="auth-remember">
-                <input type="checkbox" />
+                <input type="checkbox" name="remember" />
                 <span>Keep me signed in on this device</span>
               </label>
               <button class="btn primary" type="submit">Login</button>
               <a class="link-inline" href="#">Forgot password?</a>
+              <p class="form-status" data-form-status role="status">Use your admin credentials to sign in.</p>
             </form>
           </article>
           <article>
@@ -139,6 +143,7 @@
       </div>
     </footer>
 
+    <script src="scripts/config.js" defer></script>
     <script src="scripts/data.js" defer></script>
     <script src="scripts/main.js" defer></script>
   </body>

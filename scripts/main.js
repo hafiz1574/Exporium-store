@@ -12,6 +12,10 @@ const brandEventName = "exporium-brand-change";
 const isCatalogPage = document.body?.classList.contains("page-catalog");
 const favoritesKey = "exporiumFavorites";
 const cartKey = "exporiumCart";
+const exporiumConfig = window.exporiumConfig || {};
+const apiBaseUrl = exporiumConfig.apiBaseUrl || window.location.origin;
+const adminTokenKey = exporiumConfig.tokenStorageKey || "exporiumAdminToken";
+const adminProfileKey = exporiumConfig.profileStorageKey || "exporiumAdminProfile";
 
 const readList = (key) => {
   try {
@@ -28,6 +32,194 @@ const persistList = (key, list) => {
   } catch (error) {
     // noop
   }
+};
+
+const getStoredToken = () => {
+  try {
+    return localStorage.getItem(adminTokenKey) || "";
+  } catch (error) {
+    return "";
+  }
+};
+
+const setStoredToken = (token) => {
+  try {
+    if (token) {
+      localStorage.setItem(adminTokenKey, token);
+    } else {
+      localStorage.removeItem(adminTokenKey);
+    }
+  } catch (error) {
+    // noop
+  }
+};
+
+const getStoredProfile = () => {
+  try {
+    const raw = localStorage.getItem(adminProfileKey);
+    return raw ? JSON.parse(raw) : null;
+  } catch (error) {
+    return null;
+  }
+};
+
+const setStoredProfile = (profile) => {
+  try {
+    if (profile) {
+      localStorage.setItem(adminProfileKey, JSON.stringify(profile));
+    } else {
+      localStorage.removeItem(adminProfileKey);
+    }
+  } catch (error) {
+    // noop
+  }
+};
+
+const clearAuthState = () => {
+  setStoredToken("");
+  setStoredProfile(null);
+};
+
+const apiFetch = async (path, options = {}) => {
+  const targetUrl = path.startsWith("http") ? path : `${apiBaseUrl}${path}`;
+  const fetchOptions = {
+    method: "GET",
+    ...options,
+  };
+  const headers = new Headers(fetchOptions.headers || {});
+  const isFormData = fetchOptions.body instanceof FormData;
+
+  if (!headers.has("Accept")) {
+    headers.set("Accept", "application/json");
+  }
+
+  if (!isFormData && fetchOptions.body && !headers.has("Content-Type")) {
+    headers.set("Content-Type", "application/json");
+  }
+
+  const token = getStoredToken();
+  if (token) {
+    headers.set("Authorization", `Bearer ${token}`);
+  }
+
+  fetchOptions.headers = headers;
+
+  const response = await fetch(targetUrl, fetchOptions);
+  const raw = await response.text();
+  let data = null;
+
+  if (raw) {
+    try {
+      data = JSON.parse(raw);
+    } catch (error) {
+      data = raw;
+    }
+  }
+
+  if (!response.ok) {
+    const message =
+      (data && data.message) ||
+      (typeof data === "string" && data.length ? data : `Request failed (${response.status})`);
+    const error = new Error(message);
+    error.status = response.status;
+    throw error;
+  }
+
+  return data;
+};
+
+const updateAuthIndicators = () => {
+  const profile = getStoredProfile();
+  const token = getStoredToken();
+  const isSignedIn = Boolean(profile && token);
+  const label = isSignedIn
+    ? `Signed in as ${profile.name || profile.email || "admin"}`
+    : "Not signed in";
+
+  selectAll("[data-auth-state]").forEach((node) => {
+    node.textContent = label;
+  });
+
+  selectAll("[data-logout-button]").forEach((button) => {
+    button.hidden = !isSignedIn;
+  });
+};
+
+const setupAuthFlows = () => {
+  selectAll("[data-logout-button]").forEach((node) => {
+    node.addEventListener("click", (event) => {
+      event.preventDefault();
+      clearAuthState();
+      updateAuthIndicators();
+    });
+  });
+
+  const loginForm = select("[data-login-form]");
+  if (!loginForm) {
+    updateAuthIndicators();
+    return;
+  }
+
+  let statusField = loginForm.querySelector("[data-form-status]");
+  if (!statusField) {
+    statusField = document.createElement("p");
+    statusField.className = "form-status";
+    statusField.setAttribute("data-form-status", "");
+    statusField.setAttribute("role", "status");
+    loginForm.appendChild(statusField);
+  }
+
+  const setStatus = (message, state = "info") => {
+    statusField.textContent = message;
+    statusField.dataset.state = state;
+  };
+
+  const submitButton = loginForm.querySelector("button[type='submit']");
+
+  const existingProfile = getStoredProfile();
+  if (existingProfile && getStoredToken()) {
+    const displayName = existingProfile.name || existingProfile.email || "admin";
+    setStatus(`Signed in as ${displayName}.`, "success");
+  } else {
+    setStatus("Use your admin credentials to sign in.");
+  }
+
+  loginForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    if (!submitButton) return;
+
+    const formData = new FormData(loginForm);
+    const email = formData.get("email")?.toString().trim();
+    const password = formData.get("password")?.toString();
+
+    if (!email || !password) {
+      setStatus("Enter your email and password.", "error");
+      return;
+    }
+
+    submitButton.disabled = true;
+    submitButton.textContent = "Signing in...";
+    setStatus("Contacting server...", "info");
+
+    try {
+      const data = await apiFetch("/api/auth/login", {
+        method: "POST",
+        body: JSON.stringify({ email, password }),
+      });
+      setStoredToken(data?.token);
+      setStoredProfile(data?.user || null);
+      const displayName = data?.user?.name || data?.user?.email || email;
+      setStatus(`Signed in as ${displayName}. Token saved locally.`, "success");
+    } catch (error) {
+      setStatus(error.message || "Unable to sign in.", "error");
+    } finally {
+      submitButton.disabled = false;
+      submitButton.textContent = "Login";
+      updateAuthIndicators();
+    }
+  });
+
+  updateAuthIndicators();
 };
 
 let favoriteIds = new Set(readList(favoritesKey));
@@ -914,6 +1106,7 @@ if (yearEl) {
   yearEl.textContent = new Date().getFullYear();
 }
 
+setupAuthFlows();
 setupStoryFilters();
 renderFeaturedProducts();
 renderCatalogPage();
