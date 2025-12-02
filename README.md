@@ -28,7 +28,45 @@ auth.html           # Login / sign-up workspace intake
 styles/main.css     # Global styles, animations, and theme rules
 scripts/data.js     # Centralized demo product dataset
 scripts/main.js     # Navigation, filtering, rendering, favorites/cart, and buy-intent logic
+server/             # Express-based admin API (auth, posts, settings, uploads)
 ```
+
+### Admin API (server/)
+
+The `server` folder hosts a Render-ready Express app that secures the admin dashboard work:
+
+- Auth (`POST /api/auth/login`, `GET /api/auth/me`) via JWT, with hashed admin credentials.
+- Posts CRUD (`/api/posts`) for managing catalog/news entries.
+- Site-wide settings store (`/api/settings`).
+- Image uploads (`/api/uploads`) storing files on disk (swap in S3 later).
+
+#### Quick start
+
+```bash
+cd server
+cp .env.example .env   # add DATABASE_URL, JWT_SECRET, etc.
+npm install
+psql "$DATABASE_URL" -f db/migrations.sql   # create tables
+ADMIN_EMAIL=you@example.com ADMIN_PASSWORD=secret npm run seed
+npm run dev
+```
+
+Set these env vars locally or on Render:
+
+- `PORT` — defaults to `4000`.
+- `DATABASE_URL` — Postgres connection string.
+- `JWT_SECRET`, `JWT_EXPIRES_IN` — token security.
+- `CORS_ORIGINS` — comma-separated list of allowed origins (e.g., GitHub Pages URL).
+- `UPLOAD_DIR` — where uploaded images land (persistent disk/S3 recommended in prod).
+- `ADMIN_EMAIL`, `ADMIN_PASSWORD`, `ADMIN_NAME` — used only by the `npm run seed` helper.
+
+Render deploy hints:
+
+- **Root Directory**: `server`
+- **Build Command**: `npm install`
+- **Start Command**: `npm run start`
+- **Instance Type**: Hobby → Free (scales later)
+- Add environment variables under Render > Web Service > Environment.
 
 ## Getting Started
 
