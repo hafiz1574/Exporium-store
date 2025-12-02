@@ -154,70 +154,125 @@ const setupAuthFlows = () => {
     });
   });
 
-  const loginForm = select("[data-login-form]");
-  if (!loginForm) {
-    updateAuthIndicators();
-    return;
-  }
-
-  let statusField = loginForm.querySelector("[data-form-status]");
-  if (!statusField) {
-    statusField = document.createElement("p");
-    statusField.className = "form-status";
-    statusField.setAttribute("data-form-status", "");
-    statusField.setAttribute("role", "status");
-    loginForm.appendChild(statusField);
-  }
-
-  const setStatus = (message, state = "info") => {
-    statusField.textContent = message;
-    statusField.dataset.state = state;
+  const ensureStatusField = (form) => {
+    if (!form) return null;
+    let field = form.querySelector("[data-form-status]");
+    if (!field) {
+      field = document.createElement("p");
+      field.className = "form-status";
+      field.setAttribute("data-form-status", "");
+      field.setAttribute("role", "status");
+      form.appendChild(field);
+    }
+    return field;
   };
 
-  const submitButton = loginForm.querySelector("button[type='submit']");
+  const loginForm = select("[data-login-form]");
+  if (loginForm) {
+    const statusField = ensureStatusField(loginForm);
+    const setStatus = (message, state = "info") => {
+      if (!statusField) return;
+      statusField.textContent = message;
+      statusField.dataset.state = state;
+    };
 
-  const existingProfile = getStoredProfile();
-  if (existingProfile && getStoredToken()) {
-    const displayName = existingProfile.name || existingProfile.email || "admin";
-    setStatus(`Signed in as ${displayName}.`, "success");
-  } else {
-    setStatus("Use your admin credentials to sign in.");
+    const submitButton = loginForm.querySelector("button[type='submit']");
+    const existingProfile = getStoredProfile();
+    if (existingProfile && getStoredToken()) {
+      const displayName = existingProfile.name || existingProfile.email || "admin";
+      setStatus(`Signed in as ${displayName}.`, "success");
+    } else {
+      setStatus("Use your admin credentials to sign in.");
+    }
+
+    loginForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      if (!submitButton) return;
+
+      const formData = new FormData(loginForm);
+      const email = formData.get("email")?.toString().trim();
+      const password = formData.get("password")?.toString();
+
+      if (!email || !password) {
+        setStatus("Enter your email and password.", "error");
+        return;
+      }
+
+      submitButton.disabled = true;
+      submitButton.textContent = "Signing in...";
+      setStatus("Contacting server...", "info");
+
+      try {
+        const data = await apiFetch("/api/auth/login", {
+          method: "POST",
+          body: JSON.stringify({ email, password }),
+        });
+        setStoredToken(data?.token);
+        setStoredProfile(data?.user || null);
+        const displayName = data?.user?.name || data?.user?.email || email;
+        setStatus(`Signed in as ${displayName}. Token saved locally.`, "success");
+      } catch (error) {
+        setStatus(error.message || "Unable to sign in.", "error");
+      } finally {
+        submitButton.disabled = false;
+        submitButton.textContent = "Login";
+        updateAuthIndicators();
+      }
+    });
   }
 
-  loginForm.addEventListener("submit", async (event) => {
-    event.preventDefault();
-    if (!submitButton) return;
+  const registerForm = select("[data-register-form]");
+  if (registerForm) {
+    const statusField = ensureStatusField(registerForm);
+    const setStatus = (message, state = "info") => {
+      if (!statusField) return;
+      statusField.textContent = message;
+      statusField.dataset.state = state;
+    };
 
-    const formData = new FormData(loginForm);
-    const email = formData.get("email")?.toString().trim();
-    const password = formData.get("password")?.toString();
+    registerForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const submitButton = registerForm.querySelector("button[type='submit']");
+      if (!submitButton) return;
 
-    if (!email || !password) {
-      setStatus("Enter your email and password.", "error");
-      return;
-    }
+      const formData = new FormData(registerForm);
+      const name = formData.get("name")?.toString().trim();
+      const email = formData.get("email")?.toString().trim();
+      const password = formData.get("password")?.toString();
+      const confirm = formData.get("confirmPassword")?.toString();
 
-    submitButton.disabled = true;
-    submitButton.textContent = "Signing in...";
-    setStatus("Contacting server...", "info");
+      if (!name || !email || !password) {
+        setStatus("All fields are required.", "error");
+        return;
+      }
 
-    try {
-      const data = await apiFetch("/api/auth/login", {
-        method: "POST",
-        body: JSON.stringify({ email, password }),
-      });
-      setStoredToken(data?.token);
-      setStoredProfile(data?.user || null);
-      const displayName = data?.user?.name || data?.user?.email || email;
-      setStatus(`Signed in as ${displayName}. Token saved locally.`, "success");
-    } catch (error) {
-      setStatus(error.message || "Unable to sign in.", "error");
-    } finally {
-      submitButton.disabled = false;
-      submitButton.textContent = "Login";
-      updateAuthIndicators();
-    }
-  });
+      if (password !== confirm) {
+        setStatus("Passwords do not match.", "error");
+        return;
+      }
+
+      submitButton.disabled = true;
+      submitButton.textContent = "Creating account...";
+      setStatus("Creating your account...", "info");
+
+      try {
+        const data = await apiFetch("/api/auth/register", {
+          method: "POST",
+          body: JSON.stringify({ name, email, password }),
+        });
+        setStoredToken(data?.token);
+        setStoredProfile(data?.user || null);
+        setStatus("Account created! You are now signed in.", "success");
+        registerForm.reset();
+      } catch (error) {
+        setStatus(error.message || "Unable to create account.", "error");
+      } finally {
+        submitButton.disabled = false;
+        submitButton.textContent = "Create account";
+        updateAuthIndicators();
+      }
+    });
+  }
 
   updateAuthIndicators();
 };

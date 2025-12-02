@@ -1,5 +1,6 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const { v4: uuid } = require("uuid");
 const config = require("../config/env");
 const db = require("../config/db");
 const asyncHandler = require("../utils/asyncHandler");
@@ -33,9 +34,11 @@ exports.login = asyncHandler(async (req, res) => {
     return res.status(400).json({ message: "Email and password are required" });
   }
 
+  const normalizedEmail = email.trim().toLowerCase();
+
   const result = await db.query(
     "SELECT id, name, email, role, password_hash, created_at FROM users WHERE email = $1",
-    [email]
+    [normalizedEmail]
   );
 
   if (!result.rowCount) {
@@ -65,4 +68,39 @@ exports.me = asyncHandler(async (req, res) => {
   }
 
   return res.json({ user: result.rows[0] });
+});
+
+exports.register = asyncHandler(async (req, res) => {
+  const { name, email, password } = req.body || {};
+
+  if (!name || !email || !password) {
+    return res.status(400).json({ message: "Name, email, and password are required" });
+  }
+
+  const normalizedEmail = email.trim().toLowerCase();
+  const normalizedName = name.trim();
+
+  if (password.length < 6) {
+    return res.status(400).json({ message: "Password must be at least 6 characters" });
+  }
+
+  const existing = await db.query("SELECT id FROM users WHERE email = $1", [normalizedEmail]);
+  if (existing.rowCount) {
+    return res.status(409).json({ message: "Account already exists" });
+  }
+
+  const passwordHash = await bcrypt.hash(password, 12);
+  const id = uuid();
+
+  const result = await db.query(
+    `INSERT INTO users (id, name, email, role, password_hash)
+     VALUES ($1, $2, $3, 'admin', $4)
+     RETURNING id, name, email, role, created_at` ,
+    [id, normalizedName, normalizedEmail, passwordHash]
+  );
+
+  const user = result.rows[0];
+  const token = buildToken(user);
+
+  return res.status(201).json({ token, user });
 });

@@ -66,7 +66,7 @@
       <section class="auth-panel">
         <div class="shell auth-panel__grid">
           <article>
-            <p class="eyebrow">Existing partners</p>
+            <p class="eyebrow">Existing admins</p>
             <h1>Sign in to Exporium.</h1>
             <form class="cta-form auth-form" data-login-form>
               <label>
@@ -87,34 +87,34 @@
             </form>
           </article>
           <article>
-            <p class="eyebrow">New teams</p>
-            <h2>Create an Exporium workspace.</h2>
-            <form class="cta-form auth-form">
+            <p class="eyebrow">New admins</p>
+            <h2>Create your dashboard login.</h2>
+            <form class="cta-form auth-form" data-register-form>
               <label>
-                Company name
-                <input type="text" placeholder="e.g. BazarWalk" required />
+                Full name
+                <input type="text" name="name" placeholder="e.g. Ops Admin" autocomplete="name" required />
               </label>
               <label>
                 Work email
-                <input type="email" placeholder="you@brand.com" required />
+                <input type="email" name="email" placeholder="you@brand.com" autocomplete="email" required />
               </label>
               <label>
-                Phone number
-                <input type="tel" placeholder="+880 1XXX-XXXXXX" required />
+                Password
+                <input type="password" name="password" placeholder="Create a password" autocomplete="new-password" required />
               </label>
               <label>
-                Desired monthly volume
-                <select required>
-                  <option value="" disabled selected>Select range</option>
-                  <option>0 - 200 pairs</option>
-                  <option>200 - 500 pairs</option>
-                  <option>500 - 1200 pairs</option>
-                  <option>1200+ pairs</option>
-                </select>
+                Confirm password
+                <input type="password" name="confirmPassword" placeholder="Repeat password" autocomplete="new-password" required />
               </label>
-              <button class="btn secondary" type="submit">Request access</button>
+              <button class="btn secondary" type="submit">Create account</button>
+              <p class="form-status" data-form-status role="status">You'll be signed in automatically after creating an account.</p>
             </form>
           </article>
+        </div>
+        <div class="shell" style="margin-top: 2rem;">
+          <p>
+            Once you are signed in, head to the <a class="link-inline" href="admin.html">Exporium dashboard</a> to manage posts, uploads, and settings.
+          </p>
         </div>
       </section>
     </main>

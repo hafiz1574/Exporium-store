@@ -35,7 +35,7 @@ server/             # Express-based admin API (auth, posts, settings, uploads)
 
 The `server` folder hosts a Render-ready Express app that secures the admin dashboard work:
 
-- Auth (`POST /api/auth/login`, `GET /api/auth/me`) via JWT, with hashed admin credentials.
+- Auth (`POST /api/auth/register`, `POST /api/auth/login`, `GET /api/auth/me`) via JWT, with hashed admin credentials.
 - Posts CRUD (`/api/posts`) for managing catalog/news entries.
 - Site-wide settings store (`/api/settings`).
 - Image uploads (`/api/uploads`) storing files on disk (swap in S3 later).
@@ -71,7 +71,7 @@ Render deploy hints:
 ### Frontend API configuration
 
 - `scripts/config.js` sets the public API base (`https://exporium-store.onrender.com` in production) and the local storage keys used for auth tokens/profile data. Update `apiBaseUrl` if you deploy the backend elsewhere.
-- `auth.html` now posts directly to `/api/auth/login` and stores the returned JWT client-side so subsequent fetch calls (or the upcoming admin UI) automatically include the `Authorization` header.
+- `auth.html` now posts directly to `/api/auth/register` + `/api/auth/login` and stores the returned JWT client-side so subsequent fetch calls (or the admin UI) automatically include the `Authorization` header.
 - The header’s user menu reflects the stored session and surfaces a Sign out action that clears the local token/profile.
 
 ### Admin dashboard
