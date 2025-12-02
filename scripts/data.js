@@ -1,50 +1,38 @@
 (function () {
+  const LOCAL_PRODUCT_BASE = "file:///C:/Users/ZhuanZ/Downloads/Product";
+  const LOCAL_WARRIOR_BASE = `${LOCAL_PRODUCT_BASE}/Warrrior`;
+  const makeLocalGallery = (base, files) =>
+    files.map((file) => `${base}/${file}`);
+
+  const defaultLocalGallery = makeLocalGallery(LOCAL_PRODUCT_BASE, [
+    "13408222371554807.jpg",
+    "13408222394082615.jpg",
+    "13408222398145707.jpg",
+    "13408222400190309.jpg",
+    "13408222401590464.jpg",
+    "13408222402838653.jpg",
+  ]);
+
+  const warriorGallery = makeLocalGallery(LOCAL_WARRIOR_BASE, [
+    "Weixin Image_20251202213850_253_43.jpg",
+    "Weixin Image_20251202213852_255_43.jpg",
+    "Weixin Image_20251202213854_257_43.jpg",
+    "Weixin Image_20251202213907_263_43.jpg",
+    "Weixin Image_20251202213941_275_43.jpg",
+    "Weixin Image_20251202213944_278_43.jpg",
+  ]);
+
   const imageSets = {
-    nike: [
-      "https://images.unsplash.com/photo-1518895949257-7621c3c786d7?auto=format&fit=crop&w=1200&q=80",
-      "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1200&q=80",
-      "https://images.unsplash.com/photo-1514996937319-344454492b37?auto=format&fit=crop&w=1200&q=80",
-    ],
-    "nike sb": [
-      "https://images.unsplash.com/photo-1503602642458-232111445657?auto=format&fit=crop&w=1200&q=80",
-      "https://images.unsplash.com/photo-1460353581641-37baddab0fa2?auto=format&fit=crop&w=1200&q=80",
-      "https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=1200&q=80",
-    ],
-    "air jordan": [
-      "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=1200&q=80",
-      "https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?auto=format&fit=crop&w=1200&q=80",
-      "https://images.unsplash.com/photo-1513104487127-813ea879b8da?auto=format&fit=crop&w=1200&q=80",
-    ],
-    puma: [
-      "https://images.unsplash.com/photo-1518544801958-efcbf8a7ec10?auto=format&fit=crop&w=1200&q=80",
-      "https://images.unsplash.com/photo-1521572169061-9dd866bbe3a0?auto=format&fit=crop&w=1200&q=80",
-      "https://images.unsplash.com/photo-1434596922112-19c563067271?auto=format&fit=crop&w=1200&q=80",
-    ],
-    adidas: [
-      "https://images.unsplash.com/photo-1521335751419-603f61523713?auto=format&fit=crop&w=1200&q=80",
-      "https://images.unsplash.com/photo-1523381210434-271e8be1f52b?auto=format&fit=crop&w=1200&q=80",
-      "https://images.unsplash.com/photo-1464472186645-712c8b886a06?auto=format&fit=crop&w=1200&q=80",
-    ],
-    asics: [
-      "https://images.unsplash.com/photo-1500614922032-b6dd337b1315?auto=format&fit=crop&w=1200&q=80",
-      "https://images.unsplash.com/photo-1503602642458-232111445657?auto=format&fit=crop&w=1200&q=80",
-      "https://images.unsplash.com/photo-1513997242603-4f1396b9d5d4?auto=format&fit=crop&w=1200&q=80",
-    ],
-    "alexander mcqueen": [
-      "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1200&q=80",
-      "https://images.unsplash.com/photo-1528701800489-20be3c0da4d2?auto=format&fit=crop&w=1200&q=80",
-      "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=1200&q=80",
-    ],
-    onitsuka: [
-      "https://images.unsplash.com/photo-1503342250614-ca4407868a5b?auto=format&fit=crop&w=1200&q=80",
-      "https://images.unsplash.com/photo-1517867065801-833f4aa94414?auto=format&fit=crop&w=1200&q=80",
-      "https://images.unsplash.com/photo-1460353581641-37baddab0fa2?auto=format&fit=crop&w=1200&q=80",
-    ],
-    default: [
-      "https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?auto=format&fit=crop&w=1200&q=80",
-      "https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?auto=format&fit=crop&w=1200&q=80",
-      "https://images.unsplash.com/photo-1503602642458-232111445657?auto=format&fit=crop&w=1200&q=80",
-    ],
+    nike: defaultLocalGallery,
+    "nike sb": defaultLocalGallery,
+    "air jordan": defaultLocalGallery,
+    puma: defaultLocalGallery,
+    adidas: defaultLocalGallery,
+    asics: defaultLocalGallery,
+    "alexander mcqueen": defaultLocalGallery,
+    onitsuka: defaultLocalGallery,
+    warrior: warriorGallery,
+    default: defaultLocalGallery,
   };
 
   const baseLogistics = {
@@ -310,6 +298,7 @@
   const pickImages = (brand) => {
     const key = brand.toLowerCase();
     if (imageSets[key]) return imageSets[key];
+    if (key.includes("warrior")) return imageSets.warrior;
     if (key.includes("jordan")) return imageSets["air jordan"];
     if (key.includes("nike")) return imageSets.nike;
     if (key.includes("puma")) return imageSets.puma;
