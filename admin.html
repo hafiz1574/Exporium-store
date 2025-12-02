@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Exporium Admin Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles/main.css" />
+  </head>
+  <body class="page-admin">
+    <header class="site-header">
+      <div class="shell header__row">
+        <a class="logo" href="index.html">Exporium</a>
+        <nav class="primary-nav">
+          <a href="index.html">Home</a>
+          <a href="catalog.html">Catalog</a>
+          <a href="product.html">Product preview</a>
+          <a href="index.html#contact">Contact</a>
+        </nav>
+        <div class="header-actions">
+          <a class="btn ghost mini" href="auth.html">Switch account</a>
+          <button class="user-toggle" data-user-toggle aria-haspopup="true" aria-expanded="false">
+            <span>User options</span>
+            <span class="chevron"></span>
+          </button>
+          <div class="user-menu open" data-user-menu>
+            <p class="user-menu__status" data-auth-state>Checking session…</p>
+            <a href="auth.html">Sign in</a>
+            <a href="#" data-logout-button hidden>Sign out</a>
+          </div>
+        </div>
+        <button class="menu-toggle" aria-label="Toggle navigation">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </header>
+
+    <main class="admin-main">
+      <section class="admin-hero">
+        <div class="shell admin-shell">
+          <p class="eyebrow">Admin control center</p>
+          <div class="admin-hero__grid">
+            <div>
+              <h1>Manage Exporium content.</h1>
+              <p data-admin-status>
+                Validating your session. You must sign in via the auth page before changes can be saved.
+              </p>
+              <div class="admin-hero__actions">
+                <button class="btn secondary" type="button" data-session-refresh>
+                  Refresh session
+                </button>
+                <a class="btn ghost" href="auth.html">Open login page</a>
+              </div>
+            </div>
+            <div class="admin-session-card">
+              <p class="eyebrow">Session</p>
+              <dl>
+                <div>
+                  <dt>User</dt>
+                  <dd data-admin-user>Unknown</dd>
+                </div>
+                <div>
+                  <dt>Email</dt>
+                  <dd data-admin-email>—</dd>
+                </div>
+                <div>
+                  <dt>Role</dt>
+                  <dd data-admin-role>—</dd>
+                </div>
+                <div>
+                  <dt>Token stored</dt>
+                  <dd data-admin-token-state>No</dd>
+                </div>
+              </dl>
+              <p class="admin-session-card__hint">
+                Use "Sign out" in the user menu to clear the token from this browser.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="admin-shell admin-grid">
+        <article class="admin-card">
+          <header>
+            <div>
+              <p class="eyebrow">Posts</p>
+              <h2>Recent updates</h2>
+            </div>
+            <button class="btn ghost mini" type="button" data-posts-refresh>Refresh list</button>
+          </header>
+          <div class="admin-table-wrapper">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Title</th>
+                  <th>Status</th>
+                  <th>Audience</th>
+                  <th>Updated</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody data-posts-body></tbody>
+            </table>
+            <p class="admin-empty" data-posts-empty hidden>No posts yet. Create one using the form.</p>
+          </div>
+        </article>
+
+        <article class="admin-card">
+          <header>
+            <div>
+              <p class="eyebrow">Compose</p>
+              <h2>Create / edit post</h2>
+            </div>
+            <button class="btn ghost mini" type="button" data-post-cancel hidden>Cancel edit</button>
+          </header>
+          <form class="admin-form" data-post-form>
+            <label>
+              Title
+              <input type="text" name="title" placeholder="Drop headline" required />
+            </label>
+            <label>
+              Status
+              <select name="status">
+                <option value="draft">Draft</option>
+                <option value="published">Published</option>
+              </select>
+            </label>
+            <label>
+              Audience
+              <select name="audience">
+                <option value="general">General</option>
+                <option value="boutique">Boutique</option>
+                <option value="chain">Chain</option>
+              </select>
+            </label>
+            <label>
+              Hero image URL
+              <input type="url" name="heroImageUrl" placeholder="https://..." />
+            </label>
+            <label>
+              Body
+              <textarea name="body" rows="6" placeholder="Long-form content" required></textarea>
+            </label>
+            <div class="admin-form__actions">
+              <button class="btn primary" type="submit">Save post</button>
+              <p class="form-status" data-post-message role="status"></p>
+            </div>
+          </form>
+        </article>
+
+        <article class="admin-card">
+          <header>
+            <div>
+              <p class="eyebrow">Settings</p>
+              <h2>Global site settings</h2>
+            </div>
+            <button class="btn ghost mini" type="button" data-settings-refresh>Reload</button>
+          </header>
+          <form class="admin-form" data-settings-form>
+            <label>
+              JSON payload
+              <textarea
+                name="settings"
+                rows="10"
+                data-settings-json
+                placeholder="{ \"heroHeadline\": \"...\" }"
+              ></textarea>
+            </label>
+            <small>
+              Settings are stored as key/value JSON. Submit valid JSON only (e.g., {"heroHeadline":"value"}).
+            </small>
+            <div class="admin-form__actions">
+              <button class="btn primary" type="submit">Save settings</button>
+              <p class="form-status" data-settings-message role="status"></p>
+            </div>
+          </form>
+        </article>
+
+        <article class="admin-card">
+          <header>
+            <div>
+              <p class="eyebrow">Uploads</p>
+              <h2>Media storage</h2>
+            </div>
+          </header>
+          <form class="admin-form" data-upload-form>
+            <label>
+              Upload image
+              <input type="file" name="file" accept="image/*" required />
+            </label>
+            <div class="admin-form__actions">
+              <button class="btn primary" type="submit">Upload</button>
+            </div>
+          </form>
+          <div class="upload-result" data-upload-result>
+            <p class="form-status">No uploads yet.</p>
+          </div>
+          <form class="admin-form" data-upload-delete-form>
+            <label>
+              Delete stored file (filename only)
+              <input type="text" name="filename" placeholder="e.g. 1a2b3c.jpg" />
+            </label>
+            <div class="admin-form__actions">
+              <button class="btn ghost" type="submit">Delete file</button>
+              <p class="form-status" data-upload-delete-message role="status"></p>
+            </div>
+          </form>
+        </article>
+      </section>
+    </main>
+
+    <div class="admin-guard" data-auth-guard hidden>
+      <div class="admin-guard__card">
+        <h2>Sign in required</h2>
+        <p>You need to authenticate on the <a href="auth.html">login page</a> before accessing the dashboard.</p>
+        <p>After signing in, return here and click "Refresh session".</p>
+        <a class="btn primary" href="auth.html">Go to login</a>
+      </div>
+    </div>
+
+    <script src="scripts/config.js" defer></script>
+    <script src="scripts/admin.js" defer></script>
+  </body>
+</html>

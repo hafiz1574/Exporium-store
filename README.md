@@ -74,6 +74,16 @@ Render deploy hints:
 - `auth.html` now posts directly to `/api/auth/login` and stores the returned JWT client-side so subsequent fetch calls (or the upcoming admin UI) automatically include the `Authorization` header.
 - The header’s user menu reflects the stored session and surfaces a Sign out action that clears the local token/profile.
 
+### Admin dashboard
+
+- `admin.html` + `scripts/admin.js` provide a secure, token-gated control center for posts, global settings, and media uploads.
+- Workflow:
+	1. Sign in through `auth.html` to seed your JWT/token.
+	2. Open `/admin.html` and click **Refresh session** if needed.
+	3. Use the Posts table and composer to create, edit, or delete records backed by `/api/posts`.
+	4. Update JSON settings payloads via `/api/settings` and upload assets through `/api/uploads` (with delete helper).
+- The overlay guard blocks actions until a valid token exists, and the user menu still exposes Sign out for clearing stored credentials.
+
 ## Getting Started
 
 1. Clone or download the repository.
